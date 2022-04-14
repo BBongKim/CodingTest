@@ -25,7 +25,7 @@ public class Main {
             int next_y = y + y_move[i];
 
             if (0 > next_x || next_x >= N || 0 > next_y || next_y >= N) continue;
-            if (map[next_y][next_x] <= map[y][x]) continue;
+            if (visited[next_y][next_x] || map[next_y][next_x] <= map[y][x]) continue;
 
             int temp = 1;
 
