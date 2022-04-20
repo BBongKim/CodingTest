@@ -1,5 +1,7 @@
 // 그래서, 다익스트라로 풀어봤다.
 // 실행속도가 반으로 줄어듦
+// 재채점 실패 떠서 수정했다.
+// 경로가 없는 경우 -1 출력이 잘 되도록 수정했다.
 
 import java.io.*;
 import java.util.*;
@@ -10,7 +12,7 @@ public class Main {
     static int answer;
     static int[] distance;
     static ArrayList<ArrayList<Node>> map = new ArrayList<>();
-    static int node1_N;
+    static int node1_N = -1;
 
     static class Node implements Comparable<Node> {
         int index, cost;
@@ -48,10 +50,10 @@ public class Main {
         }
 
         int r = distance[e];
-        if (s == node1) node1_N = distance[N];
+        if (s == node1 && distance[N] != (int)1e9 ) node1_N = distance[N];
 
         Arrays.fill(distance, (int) 1e9);
-        return r;
+        return r == (int) 1e9 ? -1 : r;
     }
 
     public static void main(String[] args) throws IOException {
@@ -82,11 +84,22 @@ public class Main {
         node1 = Integer.parseInt(st.nextToken());
         node2 = Integer.parseInt(st.nextToken());
 
-        int tmp1 = dijkstra(1, node1) + dijkstra(node1, node2) + dijkstra(node2, N);
-        int tmp2 = dijkstra(1, node2) + dijkstra(node2, node1) + node1_N;
+        int tmp1 = (int)1e9 , tmp2 = (int)1e9;
+
+        int a = dijkstra(1, node1);
+        int b = dijkstra(node1, node2);
+        int c = dijkstra(node2, N);
+
+        if (a >= 0 && b >= 0 && c >= 0) tmp1 = a + b + c;
+
+        a = dijkstra(1, node2);
+        b = dijkstra(node2, node1);
+        c = node1_N;
+
+        if (a >= 0 && b >= 0 && c >= 0) tmp2 = a + b + c;
 
         answer = Math.min(tmp1, tmp2);
 
-        System.out.println(answer < 0 ? -1 : answer);
+        System.out.println(answer == (int)1e9 ? -1 : answer);
     }
 }
