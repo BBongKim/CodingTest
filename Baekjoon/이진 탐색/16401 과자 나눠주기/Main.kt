@@ -8,10 +8,13 @@
 // 3 3
 // 1 1 1 케이스는 어떻게 된거지 ㅋㅋ
 
-fun solution(m: Int, n: Int, _list: List<Int>): Int {
-    val list = _list.sorted()
-    var start = 0
-    var end = list.last()
+// 23.2.1 업데이트
+// 위 케이스를 통과하지 못하기 때문에
+// start의 범위를 가능한 길이인 1부터 시작해주어야한다.
+
+fun solution(m: Int, n: Int, list: List<Int>): Int {
+    var start = 1
+    var end = list.max()
     var mid: Int
     var max = 0
 
