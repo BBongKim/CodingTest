@@ -16,7 +16,6 @@ object Main {
     fun solution(end: Int, N: Int, M: Int, rock: List<Int>): Int {
         var left = 0
         var right = end
-        var answer = 0
 
         while (left <= right) {
             var count = 0
@@ -34,13 +33,12 @@ object Main {
 
             if (count > M) {
                 right = mid - 1
-            } else {
-                answer = mid
+            } else {          
                 left = mid + 1
             }
         }
 
-        return answer
+        return right
     }
 }
 
